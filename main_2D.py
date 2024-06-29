@@ -67,6 +67,8 @@ if __name__ == "__main__":
 
         while current_epoch < n_epoch:
             current_epoch += 1
+            print(f'[Epoch {current_epoch}')
+
             for istep, train_data in enumerate(train_loader):
                 iter_start_time = time.time()
                 current_step += 1
