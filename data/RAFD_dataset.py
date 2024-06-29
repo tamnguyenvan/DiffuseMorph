@@ -56,7 +56,6 @@ class RAFDDataset(Dataset):
         # self.imageNum.append([dataFiles[0], dataFiles[1]])
         # self.imageNum = dataFiles
 
-        print('====', self.imageNum)
         self.data_len = len(self.imageNum)
 
     def __len__(self):
@@ -70,7 +69,6 @@ class RAFDDataset(Dataset):
 
         size = 128
         data = cv2.imread(dataXPath, 0)
-        print('aaaa', dataXPath)
         data = cv2.resize(data, (size, size))
         data = data.astype(float)[:, :, np.newaxis]
 
