@@ -7,7 +7,7 @@ import core.logger as Logger
 import os
 from math import *
 import time
-from util.visualizer import Visualizer
+# from util.visualizer import Visualizer
 from PIL import Image
 import numpy as np
 
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     opt = Logger.parse(args)
     # Convert to NoneDict, which return None for missing key.
     opt = Logger.dict_to_nonedict(opt)
-    visualizer = Visualizer(opt)
+    # visualizer = Visualizer(opt)
 
     # logging
     torch.backends.cudnn.enabled = True
@@ -77,10 +77,12 @@ if __name__ == "__main__":
                 if (istep+1) % opt['train']['print_freq'] == 0:
                     logs = diffusion.get_current_log()
                     t = (time.time() - iter_start_time) / batchSize
-                    visualizer.print_current_errors(current_epoch, istep+1, training_iters, logs, t, 'Train')
-                    visualizer.plot_current_errors(current_epoch, (istep+1) / float(training_iters), logs)
-                    visuals = diffusion.get_current_visuals_train()
-                    visualizer.display_current_results(visuals, current_epoch, True)
+
+                    print(f'[Iter {istep + 1}/{len(train_loader)}] - {logs}')
+                    # visualizer.print_current_errors(current_epoch, istep+1, training_iters, logs, t, 'Train')
+                    # visualizer.plot_current_errors(current_epoch, (istep+1) / float(training_iters), logs)
+                    # visuals = diffusion.get_current_visuals_train()
+                    # visualizer.display_current_results(visuals, current_epoch, True)
 
                 # validation
                 if (istep+1) % opt['train']['val_freq'] == 0:
@@ -92,7 +94,7 @@ if __name__ == "__main__":
                     diffusion.test_generation(continuous=False)
                     diffusion.test_registration(continuous=False)
                     visuals = diffusion.get_current_visuals()
-                    visualizer.display_current_results(visuals, current_epoch, True)
+                    # visualizer.display_current_results(visuals, current_epoch, True)
 
                     diffusion.set_new_noise_schedule(opt['model']['beta_schedule']['train'], schedule_phase='train')
 
@@ -110,6 +112,8 @@ if __name__ == "__main__":
         idx = 0
         result_path = '{}'.format(opt['path']['results'])
         os.makedirs(result_path, exist_ok=True)
+
+        print('result path', result_path)
         for istep,  test_data in enumerate(test_loader):
             idx += 1
             fileInfo = test_data['P']
