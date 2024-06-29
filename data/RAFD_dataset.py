@@ -62,8 +62,9 @@ class RAFDDataset(Dataset):
         return self.data_len
 
     def __getitem__(self, index):
-        fileInfo = self.imageNum[index]
-        dataXPath, dataYPath = fileInfo[0], fileInfo[1]
+        filePaths = self.imageNum[index]
+        fileInfo = os.path.basename(filePaths[0]), os.path.basename(filePaths[1])
+        dataXPath, dataYPath = filePaths[0], filePaths[1]
         # dataXPath = os.path.join(self.datapath, dataX)
         # dataYPath = os.path.join(self.datapath, dataY)
 
