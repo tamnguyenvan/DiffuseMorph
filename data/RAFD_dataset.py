@@ -68,7 +68,7 @@ class RAFDDataset(Dataset):
         # dataXPath = os.path.join(self.datapath, dataX)
         # dataYPath = os.path.join(self.datapath, dataY)
 
-        size = 512
+        size = 128
         data = cv2.imread(dataXPath, 0)
         data = cv2.resize(data, (size, size))
         data = data.astype(float)[:, :, np.newaxis]
