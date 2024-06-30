@@ -78,6 +78,7 @@ class DDPM(BaseModel):
         if isinstance(self.netG, nn.DataParallel):
             self.out_M, self.flow, self_contD, self.contF = self.netG.module.registration(input, nsample=nsample, continuous=continuous)
         else:
+            nsample = nsample[0]
             self.out_M, self.flow, self.contD, self.contF = self.netG.registration(input, nsample=nsample, continuous=continuous)
         self.netG.train()
 
